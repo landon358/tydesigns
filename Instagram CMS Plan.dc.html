@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #FDFDFD; }
+  a { color: #603090; }
+  a:hover { color: #D86090; }
+</style>
+</helmet>
+<div style="font-family: Montserrat, Helvetica, sans-serif; color: #0E0E0F; max-width: 880px; margin: 0 auto; padding: 56px 28px 90px; line-height: 1.6;">
+
+  <p style="margin: 0 0 8px; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #A84878; font-weight: 600;">TY Designs &nbsp;&#9825;&nbsp; Build plan</p>
+  <h1 style="margin: 0 0 14px; font-family: Marcellus, serif; font-weight: 400; font-size: 40px; line-height: 1.12;">Instagram is the CMS. She posts, the site updates.</h1>
+  <p style="margin: 0 0 18px; font-size: 16.5px; color: #3A3340; max-width: 46em;">No admin panel, no second tool, no new habit &mdash; she already posts near-daily. The site reads her Instagram at request time through one small Netlify Function, so there are <strong>no deploys and no build credits burned</strong>. Stays on Netlify free.</p>
+  <div style="background: #F6EAF4; border-radius: 3px; padding: 18px 22px; margin: 0 0 44px; font-size: 15px; color: #3A3340;">
+    <strong style="color: #391C50;">Why no deploys matters:</strong> Netlify&rsquo;s free plan is 300 credits/month and every production deploy is a flat 15 credits &mdash; about 20 publishes before the site pauses. Reading Instagram live sidesteps that entirely. Her photos are served from Instagram&rsquo;s own CDN, so they don&rsquo;t touch your bandwidth either.
+  </div>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">How it flows</h2>
+  <div style="display: grid; gap: 14px; margin-bottom: 44px;">
+    <sc-for list="{{ flow }}" as="f" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: 34px 1fr; gap: 16px; align-items: start; border-top: 1px solid #EBD8E8; padding-top: 14px;">
+        <span style="font-family: Marcellus, serif; font-size: 22px; color: #D4ADCB; line-height: 1.2;">{{ f.n }}</span>
+        <div>
+          <h3 style="margin: 0 0 4px; font-size: 15.5px; font-weight: 600;">{{ f.title }}</h3>
+          <p style="margin: 0; font-size: 15px; color: #6B6472;">{{ f.body }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 0 0 10px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">The one reframe worth making</h2>
+  <p style="margin: 0 0 16px; font-size: 16px; color: #3A3340;">Her posts are not new <em>products</em> &mdash; they are new <em>examples</em> of the same ten products. A Hello Kitty tumbler post doesn&rsquo;t mean &ldquo;add a product,&rdquo; it means &ldquo;here&rsquo;s another tumbler.&rdquo; So the feed splits two ways:</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-bottom: 44px;">
+    <div style="border: 1px solid #EBD8E8; border-radius: 3px; padding: 22px 24px;">
+      <p style="margin: 0 0 8px; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #A84878; font-weight: 600;">Every post</p>
+      <h3 style="margin: 0 0 8px; font-family: Marcellus, serif; font-size: 20px; font-weight: 400;">Feeds the gallery</h3>
+      <p style="margin: 0; font-size: 14.5px; color: #6B6472;">Automatic, zero effort, no tags needed. Newest twelve show on the home page and link back to the post.</p>
+    </div>
+    <div style="border: 1px solid #D4ADCB; background: #F6EAF4; border-radius: 3px; padding: 22px 24px;">
+      <p style="margin: 0 0 8px; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #A84878; font-weight: 600;">Tagged <span style="font-family: 'IBM Plex Mono', monospace; text-transform: none; letter-spacing: 0;">#tyshop</span></p>
+      <h3 style="margin: 0 0 8px; font-family: Marcellus, serif; font-size: 20px; font-weight: 400;">Becomes a shop card</h3>
+      <p style="margin: 0; font-size: 14.5px; color: #6B6472;">Opt-in, so a random selfie or a &ldquo;happy Friday&rdquo; post never lands in the catalog.</p>
+    </div>
+  </div>
+
+  <h2 style="margin: 0 0 10px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">Her caption convention</h2>
+  <p style="margin: 0 0 16px; font-size: 15.5px; color: #6B6472;">Instagram gives us one blob of caption text, not fields. So the function reads it by position and by tag &mdash; and she only has to remember this when she wants a post in the shop.</p>
+  <pre style="margin: 0 0 18px; background: #0E0E0F; color: #E2D6E8; padding: 22px 24px; border-radius: 3px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.8;">Custom Photo Tumbler, 20 oz        &larr; line 1 becomes the product name
+Add your favorite picture and name. &larr; line 2 becomes the one-line note
+Prices starting at $20              &larr; any $ amount becomes the price
+
+#tyshop #tumbler                    &larr; #tyshop = put it in the shop
+                                       #tumbler = which category</pre>
+  <div style="display: grid; gap: 0; border-top: 1px solid #EBD8E8; margin-bottom: 20px;">
+    <sc-for list="{{ parsing }}" as="p" hint-placeholder-count="5">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 4px 20px; padding: 14px 0; border-bottom: 1px solid #EBD8E8;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; color: #391C50; font-weight: 500;">{{ p.field }}</span>
+        <span style="font-size: 14.5px; color: #6B6472; grid-column: span 2;">{{ p.rule }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <p style="margin: 0 0 44px; font-size: 14.5px; color: #6B6472;">Category tags accepted: <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px;">#tumbler #mug #cup #set #backtoschool #puzzle #mirror #button #apron #smock #tshirt #balloon #garland #backdrop</span> &mdash; and it falls back to keyword matching in the caption if she forgets the hashtag.</p>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">Setup, once</h2>
+  <div style="display: grid; gap: 14px; margin-bottom: 44px;">
+    <sc-for list="{{ setup }}" as="s" hint-placeholder-count="6">
+      <div style="display: grid; grid-template-columns: 34px 1fr; gap: 16px; align-items: start; border-top: 1px solid #EBD8E8; padding-top: 14px;">
+        <span style="font-family: Marcellus, serif; font-size: 22px; color: #D4ADCB; line-height: 1.2;">{{ s.n }}</span>
+        <div>
+          <h3 style="margin: 0 0 4px; font-size: 15.5px; font-weight: 600;">{{ s.title }}</h3>
+          <p style="margin: 0; font-size: 15px; color: #6B6472;">{{ s.body }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">What will bite you</h2>
+  <div style="display: grid; gap: 16px; margin-bottom: 44px;">
+    <sc-for list="{{ gotchas }}" as="g" hint-placeholder-count="5">
+      <div style="background: #F6EAF4; border-radius: 3px; padding: 20px 24px;">
+        <h3 style="margin: 0 0 6px; font-size: 15.5px; font-weight: 600; color: #391C50;">{{ g.title }}</h3>
+        <p style="margin: 0; font-size: 15px; color: #3A3340;">{{ g.body }}</p>
+      </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">What stays free</h2>
+  <div style="display: grid; gap: 0; border-top: 1px solid #EBD8E8; margin-bottom: 44px;">
+    <sc-for list="{{ costs }}" as="c" hint-placeholder-count="4">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 4px 20px; padding: 15px 0; border-bottom: 1px solid #EBD8E8;">
+        <span style="font-size: 15.5px; font-weight: 600;">{{ c.what }}</span>
+        <span style="font-size: 14.5px; color: #6B6472; grid-column: span 2;">{{ c.limit }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">Files in this project</h2>
+  <div style="display: grid; gap: 0; border-top: 1px solid #EBD8E8; margin-bottom: 44px;">
+    <sc-for list="{{ files }}" as="f" hint-placeholder-count="4">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 4px 20px; padding: 15px 0; border-bottom: 1px solid #EBD8E8;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; color: #391C50; font-weight: 500;">{{ f.path }}</span>
+        <span style="font-size: 14.5px; color: #6B6472; grid-column: span 2;">{{ f.note }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <h2 style="margin: 0 0 16px; font-family: Marcellus, serif; font-weight: 400; font-size: 25px;">Tawanna&rsquo;s one-page instructions</h2>
+  <div style="border: 1px solid #D4ADCB; border-radius: 3px; padding: 26px 28px;">
+    <p style="margin: 0 0 18px; font-family: 'Great Vibes', cursive; font-size: 30px; color: #603090;">Putting something new on the website</p>
+    <sc-for list="{{ herSteps }}" as="s" hint-placeholder-count="5">
+      <p style="margin: 0 0 12px; font-size: 15.5px; color: #3A3340;"><span style="color: #D86090;">&#9825;</span>&nbsp; {{ s }}</p>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 900, &quot;height&quot;: 1000}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      flow: [
+        { n: "1", title: "She posts to Instagram as usual", body: "Same habit she already has. If she wants it in the shop, she adds #tyshop and a category tag." },
+        { n: "2", title: "A visitor opens the site", body: "The page calls /api/instagram — one Netlify Function, no key in the browser." },
+        { n: "3", title: "The function reads her posts", body: "graph.instagram.com/me/media returns the last 50 posts with captions, photos, and permalinks." },
+        { n: "4", title: "Captions become fields", body: "First line = name, second line = note, any $ amount = price, hashtag = category. Reels use their still frame." },
+        { n: "5", title: "Cached 30 minutes, then repeats", body: "So a thousand visitors cost one Instagram call. Nothing is ever deployed, and stale data is served if Instagram hiccups." }
+      ],
+      parsing: [
+        { field: "name", rule: "First non-empty line of the caption, hashtags stripped, trimmed to ~58 characters." },
+        { field: "note", rule: "Second line onward, first sentence only, hashtags removed, capped at 110 characters." },
+        { field: "price", rule: "\"starting at $20\" → From $20. \"$20\" alone → $20. No dollar amount → \"Ask for pricing\"." },
+        { field: "category", rule: "First matching category hashtag, else a keyword match in the caption, else Keepsake Gifts." },
+        { field: "img", rule: "media_url for photos, thumbnail_url for reels. Fetched live, never stored." }
+      ],
+      setup: [
+        { n: "1", title: "Switch @tyd.esign to a Creator account", body: "Free, in her Instagram app settings, 30 seconds. Personal accounts have no API access at all since the 2024 Basic Display shutdown — this step is not optional." },
+        { n: "2", title: "Create a Meta app", body: "developers.facebook.com → new app → add \"Instagram API with Instagram Login\". No Facebook Page needed on this path, and reading her own account is Standard Access, so no Meta App Review." },
+        { n: "3", title: "Get a long-lived token", body: "Authorize her account, exchange the 1-hour token for the 60-day one server-side (the app secret must never reach the browser)." },
+        { n: "4", title: "Add IG_TOKEN to Netlify", body: "Site settings → Environment variables. The function reads it from there; the scheduled refresher then keeps a fresher copy in Netlify Blobs." },
+        { n: "5", title: "Enable the weekly refresher", body: "netlify/functions/refresh-token.js is already scheduled @weekly. It resets the 60-day clock, so the feed cannot silently die." },
+        { n: "6", title: "Teach her #tyshop", body: "One sentence: add #tyshop when you want it in the shop. Everything else keeps working whether she remembers or not." }
+      ],
+      gotchas: [
+        { title: "Her account must be Professional", body: "Creator or Business. Personal Instagram accounts cannot be read by any official API, and old personal-account tokens are dead and cannot be refreshed." },
+        { title: "The token expires in 60 days", body: "Long-lived tokens do not auto-renew. The weekly scheduled function handles it — but if the site ever goes quiet, this is the first thing to check." },
+        { title: "Instagram image URLs are temporary", body: "They are signed and expire, which is exactly why we fetch on request and cache for 30 minutes instead of writing them into the HTML. Never paste one into the source." },
+        { title: "Captions are messy by nature", body: "Her real captions are chatty and emoji-heavy, so auto-parsed names will sometimes read oddly. The #tyshop opt-in keeps the damage contained to posts she chose — and the fix is editing the caption, which updates the site within 30 minutes." },
+        { title: "Licensed characters flow straight through", body: "If she posts a Hello Kitty tumbler with #tyshop, it becomes a shop card automatically. Worth deciding with her whether tagged posts should be reviewed, or whether she just avoids tagging those." }
+      ],
+      costs: [
+        { what: "Netlify free plan", limit: "300 credits/month. Zero deploys after launch; function requests are 2 credits per 10,000 and her images come from Instagram's CDN, not your bandwidth." },
+        { what: "Instagram API", limit: "Free. Reading her own account is Standard Access — no App Review, no fees." },
+        { what: "Netlify Blobs", limit: "Used for one string (the refreshed token). Free tier covers it many thousand times over." },
+        { what: "Domain", limit: "The only real cost, roughly $12/year. tydesignsdetroit.com is the one to grab." }
+      ],
+      files: [
+        { path: "netlify/functions/instagram.js", note: "Reads her posts, parses captions, 30-minute cache, serves stale on failure." },
+        { path: "netlify/functions/refresh-token.js", note: "Scheduled weekly. Refreshes the 60-day token into Netlify Blobs." },
+        { path: "netlify.toml", note: "Maps /api/instagram to the function." },
+        { path: "products.json", note: "Fallback catalog. Used if Instagram is unreachable or before the token exists, so the shop is never empty." }
+      ],
+      herSteps: [
+        "Post to Instagram like you always do — photo, caption, hashtags.",
+        "Every post shows up in the gallery on your website automatically. Nothing to do.",
+        "Want it in the Shop? Put #tyshop in the caption, plus what it is (#tumbler, #mug, #balloon…).",
+        "Write the caption so the first line is the item name, and put the price in it: \"Prices starting at $20\".",
+        "Give it half an hour and refresh the site. Fixing a typo? Edit the Instagram caption and it updates itself."
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

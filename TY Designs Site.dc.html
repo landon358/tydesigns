@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700&family=Cinzel:wght@400;600&family=Prata&family=Italiana&family=Marcellus&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #FDFDFD; -webkit-font-smoothing: antialiased; }
+  a { color: #603090; text-decoration: none; }
+  a:hover { color: #D86090; }
+  input, select, textarea, button { font-family: inherit; font-size: inherit; color: inherit; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+<div style="font-family: Montserrat, Helvetica, sans-serif; color: #0E0E0F; background: #FDFDFD; min-height: 100vh;">
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 18px;">
+      <a href="#" onClick="{{ goHome }}" style="display: flex; align-items: baseline; gap: 6px; margin-right: auto; text-decoration: none; min-width: 0;">
+        <span style="font-weight: 700; font-size: clamp(22px, 5.4vw, 30px); letter-spacing: 0.02em; color: #0E0E0F; line-height: 1; font-family: {{ tyFont }};">TY</span>
+        <span style="font-family: 'Great Vibes', cursive; font-size: clamp(20px, 4.9vw, 27px); color: #603090; line-height: 1;">Designs</span>
+        <span style="color: #D86090; font-size: 12px;">&#9825;</span>
+      </a>
+      <button type="button" onClick="{{ toggleMenu }}" aria-label="Menu" style="{{ burgerStyle }}">
+        <span style="{{ burgerBar1 }}"></span>
+        <span style="{{ burgerBar2 }}"></span>
+        <span style="{{ burgerBar3 }}"></span>
+      </button>
+      <nav style="{{ navStyle }}">
+        <a href="#" onClick="{{ navHome }}" style="color: #0E0E0F; padding: 4px 0; border-bottom: 1px solid transparent;" style-hover="color: #603090; border-bottom-color: #D86090;">Home</a>
+        <a href="#" onClick="{{ navShop }}" style="color: #0E0E0F; padding: 4px 0; border-bottom: 1px solid transparent;" style-hover="color: #603090; border-bottom-color: #D86090;">Shop</a>
+        <a href="#" onClick="{{ navBalloons }}" style="color: #0E0E0F; padding: 4px 0; border-bottom: 1px solid transparent;" style-hover="color: #603090; border-bottom-color: #D86090;">Balloons</a>
+        <a href="#" onClick="{{ navAbout }}" style="color: #0E0E0F; padding: 4px 0; border-bottom: 1px solid transparent;" style-hover="color: #603090; border-bottom-color: #D86090;">About</a>
+      </nav>
+      <a href="#" onClick="{{ navOrder }}" style="{{ orderBtnStyle }}" style-hover="background: #D86090; color: #FDFDFD;">Order</a>
+    </div>
+    <div style="{{ drawerStyle }}">
+      <nav style="display: grid;">
+        <a href="#" onClick="{{ navHome }}" style="display: flex; align-items: center; min-height: 52px; font-size: 16px; color: #0E0E0F; border-bottom: 1px solid #F2E8F1;" style-hover="color: #603090;">Home</a>
+        <a href="#" onClick="{{ navShop }}" style="display: flex; align-items: center; min-height: 52px; font-size: 16px; color: #0E0E0F; border-bottom: 1px solid #F2E8F1;" style-hover="color: #603090;">Shop custom gifts</a>
+        <a href="#" onClick="{{ navBalloons }}" style="display: flex; align-items: center; min-height: 52px; font-size: 16px; color: #0E0E0F; border-bottom: 1px solid #F2E8F1;" style-hover="color: #603090;">Balloon decor</a>
+        <a href="#" onClick="{{ navAbout }}" style="display: flex; align-items: center; min-height: 52px; font-size: 16px; color: #0E0E0F; border-bottom: 1px solid #F2E8F1;" style-hover="color: #603090;">About Tawanna</a>
+      </nav>
+      <div style="display: grid; gap: 10px; margin-top: 18px;">
+        <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: #603090; color: #FDFDFD; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #D86090; color: #FDFDFD;">Start your order</a>
+        <a href="sms:+13133064412" style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; border: 1px solid #0E0E0F; color: #0E0E0F; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #F6EAF4; color: #603090; border-color: #603090;">Text 313 306 4412</a>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="background: linear-gradient(180deg, #F6EAF4 0%, #FDFDFD 100%); padding: 0 22px 80px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 56px; align-items: center; padding-top: 72px;">
+        <div style="animation: fadeUp 0.7s ease both;">
+          <p style="margin: 0 0 22px; font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #A84878; font-weight: 600;">Handmade in Detroit &nbsp;&#9825;&nbsp; Ships nationwide</p>
+          <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(38px, 5.6vw, 66px); line-height: 1.06; letter-spacing: -0.015em; text-wrap: pretty;">Personalized with purpose.<br /><em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #603090; font-size: 1.12em;">Made just for you.</em></h1>
+          <p style="margin: 26px 0 0; font-size: 17.5px; line-height: 1.6; color: #3A3340; max-width: 30em; text-wrap: pretty;">Custom tumblers, mugs, matching sets, keepsakes, and balloon decor &mdash; created one at a time from your photo, name, logo, or that idea you can&rsquo;t stop thinking about.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px;">
+            <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 30px; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #603090; color: #FDFDFD;">Start your order</a>
+            <a href="tel:+13133064412" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 30px; border-radius: 999px; border: 1px solid #0E0E0F; color: #0E0E0F; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #F6EAF4; color: #603090; border-color: #603090;">Call 313&nbsp;306&nbsp;4412</a>
+          </div>
+        </div>
+        <div style="position: relative;">
+          <div style="position: absolute; inset: -18px -18px auto auto; width: 148px; height: 148px; border-radius: 999px; background: radial-gradient(circle at 35% 30%, #D4ADCB, #603090); opacity: 0.22; animation: floaty 7s ease-in-out infinite;"></div>
+          <img src="assets/hero-kingofpop.jpg" alt="Personalized tumbler and lunch set by TY Designs" style="position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px 140px 4px 140px; box-shadow: 0 30px 70px -30px rgba(57,28,80,0.5);" />
+          <p style="position: relative; margin: 16px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px; color: #603090;">&ldquo;Why have one custom item when you can have the whole set?&rdquo;</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 84px 22px; border-top: 1px solid #EBD8E8;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 38px;">
+          <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -0.01em;">What we make</h2>
+          <a href="#" onClick="{{ navShop }}" style="font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid #D4ADCB; padding-bottom: 3px;">See the full shop</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px;">
+          <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="5">
+            <a href="#" onClick="{{ cat.go }}" style="display: block; text-decoration: none; color: #0E0E0F;" style-hover="color: #603090;">
+              <div style="overflow: hidden; border-radius: 3px; background: #F6EAF4;">
+                <img src="{{ cat.img }}" alt="{{ cat.name }}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; transition: transform 0.6s ease;" style-hover="transform: scale(1.04);" />
+              </div>
+              <h3 style="margin: 16px 0 5px; font-family: 'Playfair Display', serif; font-weight: 500; font-size: 20px;">{{ cat.name }}</h3>
+              <p style="margin: 0; font-size: 13.5px; color: #6B6472; line-height: 1.5;">{{ cat.note }}</p>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: #391C50; color: #FDFDFD; padding: 78px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <p style="margin: 0 0 40px; font-family: 'Great Vibes', cursive; font-size: 34px; color: #D4ADCB;">Why TY Designs</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 40px;">
+          <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
+            <div>
+              <div style="font-size: 15px; color: #D86090; margin-bottom: 14px;">&#9825;</div>
+              <h3 style="margin: 0 0 8px; font-family: 'Playfair Display', serif; font-weight: 500; font-size: 21px;">{{ r.title }}</h3>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #E2D6E8;">{{ r.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 84px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <h2 style="margin: 0 0 8px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 40px);">How to order</h2>
+        <p style="margin: 0 0 44px; font-size: 16px; color: #6B6472;">Four steps, start to doorstep.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="border-top: 2px solid #D4ADCB; padding-top: 20px;">
+              <p style="margin: 0 0 10px; font-family: 'Playfair Display', serif; font-size: 40px; line-height: 1; color: #D4ADCB;">{{ s.n }}</p>
+              <h3 style="margin: 0 0 7px; font-size: 16px; font-weight: 600; letter-spacing: 0.01em;">{{ s.title }}</h3>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #6B6472;">{{ s.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 0 22px 84px;">
+      <div style="max-width: 1180px; margin: 0 auto; background: #F6EAF4; border-radius: 3px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0; overflow: hidden;">
+        <img src="assets/set-sets.jpg" alt="Matching personalized lunch bag, pencil bag and tumbler" style="width: 100%; height: 100%; min-height: 320px; object-fit: cover; display: block;" />
+        <div style="padding: 56px 46px;">
+          <p style="margin: 0 0 16px; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #A84878; font-weight: 600;">Matching sets</p>
+          <h2 style="margin: 0 0 18px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(26px, 3vw, 36px); line-height: 1.15;">A matching set made just for you.</h2>
+          <p style="margin: 0 0 26px; font-size: 16px; line-height: 1.65; color: #3A3340;">Personalized lunch bag, pencil bag &amp; tumbler &mdash; perfect for school, work, or on the go. Choose your favorite design and make it your own.</p>
+          <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 28px; border-radius: 999px; background: #603090; color: #FDFDFD; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #0E0E0F; color: #FDFDFD;">Order your set</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 0 22px 84px;">
+      <div style="max-width: 1180px; margin: 0 auto; border-top: 1px solid #EBD8E8; border-bottom: 1px solid #EBD8E8; padding: 34px 0; display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; justify-content: center;">
+        <sc-for list="{{ occasions }}" as="o" hint-placeholder-count="9">
+          <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 21px; color: #391C50;">{{ o }}</span>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="padding: 0 22px 90px;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 26px;">
+          <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px);">Fresh from the studio</h2>
+          <a href="https://www.instagram.com/tyd.esign/" target="_blank" rel="noopener" style="font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid #D4ADCB; padding-bottom: 3px;">@tyd.esign</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+          <sc-for list="{{ feed }}" as="f" hint-placeholder-count="8">
+            <a href="{{ f.permalink }}" target="_blank" rel="noopener" style="display: block; overflow: hidden; background: #F6EAF4;">
+              <img src="{{ f.img }}" alt="{{ f.alt }}" style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; transition: opacity 0.4s ease;" style-hover="opacity: 0.82;" />
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="background: linear-gradient(180deg, #FDFDFD 0%, #F6EAF4 100%); padding: 96px 22px 104px; text-align: center;">
+      <p style="margin: 0 auto; max-width: 20em; font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); line-height: 1.2; font-weight: 400;">More than gifts&hellip;<br /><em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #603090;">we create memories.</em></p>
+      <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; min-height: 54px; padding: 0 34px; margin-top: 34px; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #D86090; color: #FDFDFD;">Let&rsquo;s create something amazing</a>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+  <main>
+    <section style="background: #F6EAF4; padding: 70px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <h1 style="margin: 0 0 18px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.08;">Shop custom gifts</h1>
+        <p style="margin: 0; max-width: 40em; font-size: 17px; line-height: 1.65; color: #3A3340;">Whether you have your own picture, name, logo, theme, or special idea, TY Designs can create something uniquely yours.</p>
+      </div>
+    </section>
+    <section style="padding: 44px 22px 0;">
+      <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px;">
+        <sc-for list="{{ shopFilters }}" as="f" hint-placeholder-count="4">
+          <a href="#" onClick="{{ f.go }}" style="{{ f.style }}">{{ f.label }}</a>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 34px 22px 30px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 34px 24px;">
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="10">
+          <div>
+            <div style="overflow: hidden; background: #F6EAF4; border-radius: 3px;">
+              <img src="{{ p.img }}" alt="{{ p.name }}" style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; transition: transform 0.6s ease;" style-hover="transform: scale(1.04);" />
+            </div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; align-items: baseline;">
+              <h3 style="margin: 0; font-family: 'Playfair Display', serif; font-weight: 500; font-size: 19px; line-height: 1.25;">{{ p.name }}</h3>
+              <span style="font-size: 13px; font-weight: 600; color: #A84878; white-space: nowrap;">{{ p.price }}</span>
+            </div>
+            <p style="margin: 8px 0 14px; font-size: 14px; line-height: 1.55; color: #6B6472;">{{ p.note }}</p>
+            <a href="#" onClick="{{ p.go }}" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid #D4ADCB; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #603090;" style-hover="background: #603090; color: #FDFDFD; border-color: #603090;">Personalize</a>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 34px 22px 84px;">
+      <div style="max-width: 1180px; margin: 0 auto; border: 1px solid #EBD8E8; border-radius: 3px; padding: 26px 30px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+        <span style="color: #D86090;">&#9825;</span>
+        <p style="margin: 0; font-size: 15.5px; color: #3A3340;">Add a self photo to any item for <strong style="color: #603090;">$5</strong>. Shipping available on U.S. orders, or pick up locally in Detroit.</p>
+      </div>
+    </section>
+    <section style="background: #391C50; color: #FDFDFD; padding: 78px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 44px; align-items: center;">
+        <div>
+          <p style="margin: 0 0 14px; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #D4ADCB; font-weight: 600;">For businesses</p>
+          <h2 style="margin: 0 0 18px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.15;">Made for your business.<br /><em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #D86090; font-size: 1.1em;">Made with love.</em></h2>
+          <p style="margin: 0 0 26px; font-size: 16px; line-height: 1.65; color: #E2D6E8; max-width: 32em;">Logo aprons, stylist smocks, branded tumblers, T-shirts, buttons, and client or employee gifts &mdash; in small runs or bulk.</p>
+          <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 28px; border-radius: 999px; background: #FDFDFD; color: #391C50; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #D86090; color: #FDFDFD;">Request a bulk quote</a>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <img src="assets/smocks.jpg" alt="Personalized stylist smocks" style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 3px;" />
+          <img src="assets/apron.jpg" alt="Custom apron with business logo" style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 3px;" />
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isBalloons }}" hint-placeholder-val="{{ false }}">
+  <main>
+    <section style="padding: 0 22px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: center; padding: 70px 0 60px;">
+        <div>
+          <p style="margin: 0 0 20px; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #A84878; font-weight: 600;">Balloon decor &nbsp;&#9825;&nbsp; Metro Detroit</p>
+          <h1 style="margin: 0 0 20px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(34px, 4.8vw, 56px); line-height: 1.08;">Balloons that make <em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #603090; font-size: 1.1em;">the moment.</em></h1>
+          <p style="margin: 0 0 28px; font-size: 17px; line-height: 1.65; color: #3A3340; max-width: 32em;">From graduations to birthdays, TY Designs brings the color, the sparkle, and the celebration. Pair your balloons with matching cups, shirts, and favors for a party that&rsquo;s personalized from top to bottom.</p>
+          <a href="#" onClick="{{ navOrder }}" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 30px; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;" style-hover="background: #603090; color: #FDFDFD;">Check my date</a>
+        </div>
+        <img src="assets/balloons-grad.jpg" alt="Graduation balloon garland backdrop" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px;" />
+      </div>
+    </section>
+    <section style="padding: 20px 22px 80px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px;">
+        <sc-for list="{{ balloonServices }}" as="b" hint-placeholder-count="4">
+          <div style="border-top: 2px solid #D4ADCB; padding-top: 18px;">
+            <h3 style="margin: 0 0 8px; font-family: 'Playfair Display', serif; font-weight: 500; font-size: 20px;">{{ b.title }}</h3>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #6B6472;">{{ b.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 0 22px 90px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+        <img src="assets/balloons-columns.jpg" alt="Balloon columns" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px;" />
+        <img src="assets/balloons-rainbow.jpg" alt="Rainbow balloon columns" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px;" />
+        <img src="assets/money-bouquet.jpg" alt="Money bouquet" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 3px;" />
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <main>
+    <section style="padding: 0 22px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 56px; align-items: start; padding: 74px 0 70px;">
+        <div>
+          <h1 style="margin: 0 0 24px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(34px, 4.8vw, 56px); line-height: 1.08;">Hi, I&rsquo;m <em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #603090; font-size: 1.12em;">Tawanna.</em></h1>
+          <p style="margin: 0 0 20px; font-size: 17.5px; line-height: 1.7; color: #3A3340;">Welcome to TY Designs! I create custom and personalized items for birthdays, graduations, memorials, businesses, special occasions, holidays, gifts, and everyday use.</p>
+          <p style="margin: 0 0 20px; font-size: 17.5px; line-height: 1.7; color: #3A3340;">From mugs, tumblers, T-shirts, tote bags, bookmarks, buttons, and button mirrors to balloons and cups, every order is crafted with love right here in Detroit.</p>
+          <p style="margin: 0 0 30px; font-size: 17.5px; line-height: 1.7; color: #3A3340;">Bring me your picture, name, logo, theme, or that special idea you can&rsquo;t stop thinking about, and I&rsquo;ll help bring it to life. Because to me, it&rsquo;s more than a gift. It&rsquo;s a memory.</p>
+          <p style="margin: 0; font-family: 'Great Vibes', cursive; font-size: 40px; color: #603090;">Tawanna</p>
+        </div>
+        <div>
+          <img src="assets/logo_cover.jpg" alt="TY Designs logo badge" style="width: 100%; object-fit: cover; border-radius: 3px; background: #F6EAF4;" />
+          <div style="margin-top: 22px; border: 1px solid #EBD8E8; border-radius: 3px; padding: 22px 24px;">
+            <p style="margin: 0 0 12px; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #A84878; font-weight: 600;">The studio</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #3A3340;">Home-based studio on Detroit&rsquo;s east side. Local pickup by appointment, shipping across the U.S.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section style="background: #391C50; color: #FDFDFD; padding: 54px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: center; align-items: center;">
+        <sc-for list="{{ values }}" as="v" hint-placeholder-count="4">
+          <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; letter-spacing: 0.04em;">{{ v }}</span>
+        </sc-for>
+      </div>
+    </section>
+    <section style="padding: 80px 22px;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 style="margin: 0 0 34px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px);">Good to know</h2>
+        <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="6">
+          <div style="border-top: 1px solid #EBD8E8; padding: 22px 0;">
+            <h3 style="margin: 0 0 8px; font-size: 16.5px; font-weight: 600;">{{ q.q }}</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #6B6472;">{{ q.a }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isOrder }}" hint-placeholder-val="{{ false }}">
+  <main>
+    <section style="background: #F6EAF4; padding: 70px 22px;">
+      <div style="max-width: 1180px; margin: 0 auto;">
+        <h1 style="margin: 0 0 16px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(32px, 4.4vw, 52px); line-height: 1.08;">Let&rsquo;s create something <em style="font-family: 'Great Vibes', cursive; font-style: normal; color: #603090; font-size: 1.1em;">amazing together!</em></h1>
+        <p style="margin: 0; max-width: 38em; font-size: 17px; line-height: 1.65; color: #3A3340;">Tell me what you have in mind and I&rsquo;ll reply with pricing and a turnaround time. Prefer to talk? Call or text <a href="sms:+13133064412" style="font-weight: 600;">313 306 4412</a>.</p>
+      </div>
+    </section>
+    <section style="padding: 60px 22px 90px;">
+      <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 56px; align-items: start;">
+        <div>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <div style="border: 1px solid #D4ADCB; background: #F6EAF4; border-radius: 3px; padding: 40px 34px;">
+              <p style="margin: 0 0 10px; font-family: 'Great Vibes', cursive; font-size: 38px; color: #603090;">Thank you!</p>
+              <p style="margin: 0 0 22px; font-size: 16px; line-height: 1.65; color: #3A3340;">Your request is in. I&rsquo;ll get back to you with pricing and timing &mdash; usually the same day.</p>
+              <a href="#" onClick="{{ resetForm }}" style="font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid #D4ADCB; padding-bottom: 3px;">Send another request</a>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display: grid; gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your name</span><input type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone</span><input type="tel" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+            </div>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email</span><input type="email" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">What would you like?</span>
+                <select value="{{ item }}" onChange="{{ setItem }}" style="min-height: 48px; padding: 0 12px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;">
+                  <sc-for list="{{ itemOptions }}" as="o" hint-placeholder-count="8"><option value="{{ o }}">{{ o }}</option></sc-for>
+                </select>
+              </label>
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Quantity</span><input type="number" min="1" defaultValue="1" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+            </div>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Name or text to print</span><input type="text" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Theme, colors, or idea</span><textarea rows="4" style="padding: 12px 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD; resize: vertical;" style-focus="outline: none; border-color: #603090;"></textarea></label>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your photo <span style="text-transform: none; letter-spacing: 0; font-weight: 400;">&mdash; clear, well lit, high quality</span></span><input type="file" accept="image/*" style="min-height: 48px; padding: 12px 14px; border: 1px dashed #D4ADCB; border-radius: 2px; background: #FDFDFD;" /></label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Need it by</span><input type="date" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Pickup or ship</span>
+                <select style="min-height: 48px; padding: 0 12px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;">
+                  <option value="pickup">Pickup in Detroit</option>
+                  <option value="ship">Ship to me (U.S.)</option>
+                </select>
+              </label>
+            </div>
+            <button type="submit" style="min-height: 54px; padding: 0 32px; border: none; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; justify-self: start;" style-hover="background: #603090;">Send my request</button>
+          </form>
+          </sc-if>
+        </div>
+        <aside style="display: grid; gap: 22px;">
+          <div style="border: 1px solid #EBD8E8; border-radius: 3px; padding: 26px;">
+            <p style="margin: 0 0 16px; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #A84878; font-weight: 600;">Reach me directly</p>
+            <p style="margin: 0 0 10px; font-size: 16px;"><a href="sms:+13133064412" style="font-weight: 600;">Text 313 306 4412</a></p>
+            <p style="margin: 0 0 10px; font-size: 16px;"><a href="tel:+13133064412" style="font-weight: 600;">Call 313 306 4412</a></p>
+            <p style="margin: 0; font-size: 16px;"><a href="mailto:tydesigns1817@gmail.com" style="font-weight: 600;">tydesigns1817@gmail.com</a></p>
+          </div>
+          <div style="background: #F6EAF4; border-radius: 3px; padding: 26px;">
+            <p style="margin: 0 0 14px; font-family: 'Great Vibes', cursive; font-size: 30px; color: #603090;">Before you send</p>
+            <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: #3A3340;">&#9825;&nbsp; Photos look best clear, bright, and full size.</p>
+            <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: #3A3340;">&#9825;&nbsp; Add a self photo to any item for $5.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3A3340;">&#9825;&nbsp; Shipping available on U.S. orders.</p>
+          </div>
+          <img src="assets/mug-real.jpg" alt="Finished personalized mug" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px;" />
+        </aside>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <footer style="background: #0E0E0F; color: #FDFDFD; padding: 64px 22px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 40px; padding-bottom: 42px; border-bottom: 1px solid #2A242E;">
+        <div>
+          <div style="display: flex; align-items: baseline; gap: 7px;">
+            <span style="font-weight: 700; font-size: 30px; color: #FDFDFD; font-family: {{ tyFont }};">TY</span>
+            <span style="font-family: 'Great Vibes', cursive; font-size: 27px; color: #D4ADCB;">Designs</span>
+            <span style="color: #D86090; font-size: 13px;">&#9825;</span>
+          </div>
+          <p style="margin: 16px 0 0; font-size: 14.5px; line-height: 1.65; color: #B6ACBC; max-width: 24em;">Custom gifts and balloon decor, handmade in Detroit, MI. Shipping across the U.S.</p>
+        </div>
+        <div>
+          <p onClick="{{ footVisit.toggle }}" style="{{ footHeadStyle }}">Visit <span style="font-size: 16px; color: #D4ADCB;">{{ footVisit.caret }}</span></p>
+          <div style="{{ footVisit.bodyStyle }}">
+            <a href="#" onClick="{{ navHome }}" style="color: #E2D6E8;" style-hover="color: #D86090;">Home</a>
+            <a href="#" onClick="{{ navShop }}" style="color: #E2D6E8;" style-hover="color: #D86090;">Shop custom gifts</a>
+            <a href="#" onClick="{{ navBalloons }}" style="color: #E2D6E8;" style-hover="color: #D86090;">Balloon decor</a>
+            <a href="#" onClick="{{ navAbout }}" style="color: #E2D6E8;" style-hover="color: #D86090;">About Tawanna</a>
+            <a href="#" onClick="{{ navOrder }}" style="color: #E2D6E8;" style-hover="color: #D86090;">Start an order</a>
+          </div>
+        </div>
+        <div>
+          <p onClick="{{ footReach.toggle }}" style="{{ footHeadStyle }}">Reach out <span style="font-size: 16px; color: #D4ADCB;">{{ footReach.caret }}</span></p>
+          <div style="{{ footReach.bodyStyle }}">
+            <a href="sms:+13133064412" style="color: #E2D6E8;" style-hover="color: #D86090;">Text 313 306 4412</a>
+            <a href="tel:+13133064412" style="color: #E2D6E8;" style-hover="color: #D86090;">Call 313 306 4412</a>
+            <a href="mailto:tydesigns1817@gmail.com" style="color: #E2D6E8;" style-hover="color: #D86090;">tydesigns1817@gmail.com</a>
+            <a href="https://www.instagram.com/tyd.esign/" target="_blank" rel="noopener" style="color: #E2D6E8;" style-hover="color: #D86090;">Instagram</a>
+            <a href="https://www.facebook.com/61590338260006" target="_blank" rel="noopener" style="color: #E2D6E8;" style-hover="color: #D86090;">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 26px; justify-content: space-between; padding-top: 26px; font-size: 12.5px; color: #8E838E;">
+        <p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 17px; letter-spacing: 0.06em; color: #D4ADCB;">Quality &nbsp;|&nbsp; Creativity &nbsp;|&nbsp; Personalized &nbsp;|&nbsp; With Love</p>
+        <p style="margin: 0;">&copy; 2026 TY Designs, Detroit MI</p>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1280, &quot;height&quot;: 900}, &quot;tyFont&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Playfair Display&quot;, &quot;Bodoni Moda&quot;, &quot;Cinzel&quot;, &quot;Prata&quot;, &quot;Italiana&quot;, &quot;Marcellus&quot;], &quot;default&quot;: &quot;Marcellus&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Logo&quot;}}">
+class Component extends DCLogic {
+  state = {
+    page: "home", sent: false, item: "Custom tumbler", catalog: null, igFeed: null, filter: "All",
+    mobile: typeof window !== "undefined" ? window.innerWidth < 860 : false,
+    menuOpen: false, hideHeader: false, foot: null
+  };
+
+  onResize = () => {
+    const mobile = window.innerWidth < 860;
+    if (mobile !== this.state.mobile) this.setState({ mobile, menuOpen: false, foot: null });
+  };
+
+  onScroll = () => {
+    const y = window.scrollY || 0;
+    const last = this._lastY || 0;
+    this._lastY = y;
+    if (this.state.menuOpen) return;
+    const hide = y > 140 && y > last;
+    if (hide !== this.state.hideHeader) this.setState({ hideHeader: hide });
+  };
+
+  // Instagram is the CMS. /api/instagram reads her posts at request time (see the plan doc):
+  // feed drives the home strip, #tyshop-tagged posts become shop cards. Local files are the fallback.
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("scroll", this.onScroll);
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.onResize);
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    const loadFallback = () => {
+      fetch("products.json")
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
+        .then((rows) => { if (Array.isArray(rows) && rows.length) this.setState({ catalog: rows }); })
+        .catch(() => {});
+    };
+    fetch("/api/instagram")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
+      .then((d) => {
+        const next = {};
+        if (d && Array.isArray(d.feed) && d.feed.length) next.igFeed = d.feed;
+        if (d && Array.isArray(d.products) && d.products.length) next.catalog = d.products;
+        if (Object.keys(next).length) this.setState(next);
+        // Instagram answered but has no #tyshop posts yet — the catalog still needs filling.
+        if (!next.catalog) loadFallback();
+      })
+      .catch(loadFallback);
+  }
+
+  go(page) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ page, menuOpen: false, hideHeader: false });
+      if (typeof window !== "undefined") window.scrollTo(0, 0);
+    };
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    const cat = (name, note, img, page) => ({ name, note, img, go: this.go(page) });
+    const prod = (name, price, note, img, category) => ({ name, price, note, img, category, go: this.go("order") });
+    const fallback = [
+      prod("Adult Tumbler, 20 oz", "From $20", "Keeps drinks hot or cold. Personalized just for you.", "assets/tumbler-pair.jpg", "Tumblers & Mugs"),
+      prod("Youth Tumbler, 15 oz", "From $20", "Sized for older kids, built for everyday use.", "assets/set-pawpatrol.jpg", "Tumblers & Mugs"),
+      prod("Kids Water Bottle, 12 oz", "From $20", "Flip-top lid, names and favorite themes.", "assets/set-sets.jpg", "Tumblers & Mugs"),
+      prod("Custom Mug, 11 & 15 oz", "$20", "Personalized coffee mug for any occasion.", "assets/mug-real.jpg", "Tumblers & Mugs"),
+      prod("Coffee Tumbler, 12 oz", "From $20", "Clear slide lid. Turn your moments into a daily reminder.", "assets/photo-tumbler.jpg", "Tumblers & Mugs"),
+      prod("Photo Tumblers", "From $20", "Full wrap with your favorite family pictures.", "assets/hero-kingofpop.jpg", "Tumblers & Mugs"),
+      prod("Matching Back-to-School Set", "Ask for pricing", "Personalized lunch bag, pencil bag & tumbler — pick a theme or send a photo.", "assets/set-sets.jpg", "Matching Sets"),
+      prod("Heart Puzzle, 75 pc", "Ask for pricing", "Turn your memories into pieces of love. Carrying box included.", "assets/puzzle.jpg", "Keepsake Gifts"),
+      prod("Pocket Mirrors & Buttons", "Ask for pricing", "Compact, perfect for on the go, a lovely little gift.", "assets/mirror.jpg", "Keepsake Gifts"),
+      prod("Aprons & Stylist Smocks", "Ask for pricing", "Cook. Create. Love. Add your name or business logo.", "assets/apron.jpg", "Apparel & Aprons"),
+      prod("Money Bouquet", "Ask for pricing", "A cash gift arranged like a flower bouquet.", "assets/money-bouquet.jpg", "Keepsake Gifts")
+    ];
+    const rows = (this.state.catalog || fallback).slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+    const all = rows.map((r) => prod(r.name, r.price, r.note, r.img, r.category));
+    const cats = ["All"].concat(all.map((r) => r.category).filter((c, i, a) => c && a.indexOf(c) === i));
+    const active = this.state.filter;
+    const shown = active === "All" ? all : all.filter((r) => r.category === active);
+    const fonts = {
+      "Playfair Display": "'Playfair Display', serif",
+      "Bodoni Moda": "'Bodoni Moda', serif",
+      "Cinzel": "'Cinzel', serif",
+      "Prata": "'Prata', serif",
+      "Italiana": "'Italiana', serif",
+      "Marcellus": "'Marcellus', serif"
+    };
+    const m = this.state.mobile;
+    const open = this.state.menuOpen;
+    const footRow = (key) => ({
+      toggle: (e) => { e.preventDefault(); this.setState({ foot: this.state.foot === key ? null : key }); },
+      bodyStyle: !m || this.state.foot === key
+        ? "display:grid;gap:9px;font-size:14.5px;"
+        : "display:none;",
+      caret: !m ? "" : this.state.foot === key ? "–" : "+"
+    });
+    return {
+      tyFont: fonts[this.props.tyFont] || fonts["Marcellus"],
+      mobile: m,
+      desktop: !m,
+      menuOpen: open,
+      headerStyle: "position:sticky;top:0;z-index:50;background:rgba(253,253,253,0.96);backdrop-filter:blur(10px);border-bottom:1px solid #EBD8E8;transition:transform 0.32s ease;transform:translateY(" + (this.state.hideHeader ? "-100%" : "0") + ");",
+      navStyle: m
+        ? "display:none;"
+        : "display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;",
+      orderBtnStyle: m
+        ? "display:none;"
+        : "display:inline-flex;align-items:center;gap:8px;background:#603090;color:#FDFDFD;padding:12px 24px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;min-height:44px;",
+      burgerStyle: m
+        ? "display:flex;flex-direction:column;justify-content:center;gap:5px;width:46px;height:46px;padding:0 10px;border:1px solid #D4ADCB;border-radius:999px;background:transparent;cursor:pointer;"
+        : "display:none;",
+      burgerBar1: "display:block;height:1.6px;background:#391C50;border-radius:2px;transition:transform 0.25s ease;transform:" + (open ? "translateY(6.6px) rotate(45deg)" : "none") + ";",
+      burgerBar2: "display:block;height:1.6px;background:#391C50;border-radius:2px;transition:opacity 0.2s ease;opacity:" + (open ? "0" : "1") + ";",
+      burgerBar3: "display:block;height:1.6px;background:#391C50;border-radius:2px;transition:transform 0.25s ease;transform:" + (open ? "translateY(-6.6px) rotate(-45deg)" : "none") + ";",
+      drawerStyle: m && open
+        ? "display:block;border-top:1px solid #EBD8E8;background:#FDFDFD;padding:10px 22px 24px;"
+        : "display:none;",
+      toggleMenu: (e) => { e.preventDefault(); this.setState({ menuOpen: !this.state.menuOpen }); },
+      footVisit: footRow("visit"),
+      footReach: footRow("reach"),
+      footHeadStyle: m
+        ? "margin:0;font-size:11.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8E838E;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;min-height:44px;"
+        : "margin:0 0 14px;font-size:11.5px;letter-spacing:0.2em;text-transform:uppercase;color:#8E838E;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px;",
+      isHome: p === "home",
+      isShop: p === "shop",
+      isBalloons: p === "balloons",
+      isAbout: p === "about",
+      isOrder: p === "order",
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      item: this.state.item,
+      goHome: this.go("home"),
+      navHome: this.go("home"),
+      navShop: this.go("shop"),
+      navBalloons: this.go("balloons"),
+      navAbout: this.go("about"),
+      navOrder: this.go("order"),
+      setItem: (e) => this.setState({ item: e.target.value }),
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      resetForm: (e) => { e.preventDefault(); this.setState({ sent: false }); },
+      categories: [
+        cat("Tumblers & Mugs", "Adult, youth, and kids sizes. From $20.", "assets/tumbler-pair.jpg", "shop"),
+        cat("Matching Sets", "Lunch bag, pencil bag & tumbler.", "assets/set-pawpatrol.jpg", "shop"),
+        cat("Keepsake Gifts", "Puzzles, pocket mirrors, buttons.", "assets/puzzle.jpg", "shop"),
+        cat("Apparel & Aprons", "Shirts, aprons, stylist smocks.", "assets/smocks.jpg", "shop"),
+        cat("Balloon Decor", "Columns, garlands, backdrops.", "assets/balloons-rainbow.jpg", "balloons")
+      ],
+      reasons: [
+        { title: "High quality", body: "Durable, long-lasting prints that hold their color." },
+        { title: "Custom designs", body: "Made just for you — your photo, name, logo, or theme." },
+        { title: "Perfect gifts", body: "Birthdays, parties, holidays, graduations & more." },
+        { title: "Made with care", body: "Every order is crafted with love, one at a time." }
+      ],
+      steps: [
+        { n: "1", title: "Send your photo", body: "Text or upload a clear, high-quality picture and tell me the idea." },
+        { n: "2", title: "We create your item", body: "I design it, send a preview, and press it by hand." },
+        { n: "3", title: "A one-of-a-kind gift", body: "Something nobody else has, made for the moment." },
+        { n: "4", title: "Pickup or ship", body: "Local pickup in Detroit, or fast and reliable U.S. shipping." }
+      ],
+      occasions: ["Birthdays", "Graduations", "Back to School", "Game Day", "Mother's Day", "Father's Day", "Memorials", "Holidays", "Just Because"],
+      feed: this.state.igFeed || [
+        { img: "assets/photo-tumbler.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Personalized photo tumbler" },
+        { img: "assets/mug-goldengirl.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Custom photo mug" },
+        { img: "assets/set-sets.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Matching personalized set" },
+        { img: "assets/puzzle2.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Personalized photo puzzle" },
+        { img: "assets/mug-abuela.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Personalized mug" },
+        { img: "assets/mirror.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Personalized pocket mirror" },
+        { img: "assets/balloons-columns.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Balloon columns" },
+        { img: "assets/mug-grad.jpg", permalink: "https://www.instagram.com/tyd.esign/", alt: "Graduation photo mugs" }
+      ],
+      products: shown,
+      shopFilters: cats.map((c) => ({
+        label: c,
+        style: c === active
+          ? "display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border-radius:999px;background:#603090;color:#FDFDFD;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:1px solid #603090;"
+          : "display:inline-flex;align-items:center;min-height:40px;padding:0 18px;border-radius:999px;background:transparent;color:#603090;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:1px solid #D4ADCB;",
+        go: (e) => { e.preventDefault(); this.setState({ filter: c }); }
+      })),
+      itemOptions: ["Custom tumbler", "Custom mug", "Matching back-to-school set", "Photo tumbler", "Personalized puzzle", "Pocket mirrors & buttons", "Apron or stylist smock", "T-shirt", "Money bouquet", "Balloon decor", "Business / bulk order", "Something else"],
+      balloonServices: [
+        { title: "Balloon columns", body: "Pairs that frame an entrance, stage, or photo spot." },
+        { title: "Organic garland arches", body: "Custom color blends for grads, birthdays, and showers." },
+        { title: "Grad & birthday backdrops", body: "Full setups with your name, year, or theme." },
+        { title: "Custom & stuffed balloons", body: "Personalized vinyl, gifts tucked inside." }
+      ],
+      values: ["Quality", "Creativity", "Personalized", "With Love"],
+      faqs: [
+        { q: "How do I order?", a: "Send your photo and idea by text or through the order form. I design it, you approve, I make it." },
+        { q: "What photo should I send?", a: "Clear, well lit, and as large as possible — screenshots often come out blurry." },
+        { q: "Do you ship?", a: "Yes, anywhere in the U.S. Shipping is an additional cost." },
+        { q: "Can I pick up in Detroit?", a: "Yes, local pickup on the east side by appointment." },
+        { q: "Can I add a photo to any item?", a: "Yes — adding a self photo to any item is $5." },
+        { q: "Can you use my own design or logo?", a: "Absolutely. Send your artwork or logo and I'll work from that." }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
