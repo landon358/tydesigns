@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Netlify reads its form definitions from this file. The real form is rendered by
+     JavaScript in index.html, which Netlify's deploy-time parser cannot see, so every
+     field there has a twin here. Keep the two in step. -->
+<html lang="en">
+<head><meta charset="utf-8" /><title>TY Designs form definitions</title><meta name="robots" content="noindex" /></head>
+<body>
+  <form name="order" method="POST" data-netlify="true" enctype="multipart/form-data" hidden>
+    <input type="hidden" name="form-name" value="order" />
+    <input type="text" name="name" />
+    <input type="tel" name="phone" />
+    <input type="email" name="email" />
+    <input type="text" name="item" />
+    <input type="number" name="quantity" />
+    <input type="text" name="print_text" />
+    <textarea name="idea"></textarea>
+    <input type="file" name="photo" />
+    <input type="date" name="needed_by" />
+    <input type="text" name="delivery" />
+  </form>
+</body>
+</html>

@@ -1,42 +1,87 @@
 # TY Designs — website
 
-Custom gifts and balloon decor, Detroit MI. Static site, no build step.
+Custom gifts and balloon decor, Detroit MI. Static site, no build step, one owner panel.
 
-## Run it
-Open `index.html`. No bundler, no npm install.
+## How she updates it
 
-## GitHub Pages
-Already Pages-ready:
-- `index.html` is the entry point (a copy of `TY Designs Site.dc.html`)
-- `.nojekyll` stops Jekyll from eating any underscore-prefixed paths
-- every asset path is relative, so it works from a repo subpath (`user.github.io/repo/`)
+She opens `/admin`, signs in with one password, and adds an item: a photo, plus an optional
+description. No prices anywhere, by her request.
+The site picks it up straight away. She can edit, reorder, hide or delete the same way.
 
-Settings → Pages → Deploy from branch → `main` / root.
+The eleven products the site launched with are seeded into storage on the first request
+(`netlify/lib/seed.mjs`), so they show up in the panel as ordinary items she can edit or
+remove. A `seeded` flag means deleting them all keeps them gone.
 
-### Important: the Instagram feed does not run on GitHub Pages
-`netlify/functions/instagram.js` is a serverless function. GitHub Pages serves static
-files only, so `/api/instagram` 404s there and the site falls back to `products.json`
-plus the local images in `assets/` — it looks correct, it just isn't live.
+Photos are shrunk in her browser before upload, stored in Netlify Blobs, and served from
+`/media/<key>` with a permanent cache. Nothing is ever deployed to change content.
 
-For the live Instagram-as-CMS behaviour the site needs a host that runs functions
-(Netlify, which is what the plan doc is written against). Everything else is identical.
+## Run it locally
+
+```bash
+npm install
+npx netlify dev --port 8899 --offline
+```
+
+Local runs read `.env` (not committed) for `ADMIN_PASSWORD` and `SESSION_SECRET`, and keep
+items and photos in a local blob store under `.netlify/`, so nothing touches the live site.
+
+## Deploy
+
+Netlify, publish directory `.`. Two environment variables, set in Site settings:
+
+| variable | what |
+|---|---|
+| `ADMIN_PASSWORD` | the one password she types at `/admin` |
+| `SESSION_SECRET` | any long random string; signs the sign-in cookie |
+
+Changing `SESSION_SECRET` signs everyone out. Changing `ADMIN_PASSWORD` alone does too,
+if `SESSION_SECRET` was never set.
+
+This cannot run on GitHub Pages: the panel needs the three functions below.
+
+## Design system
+
+One easing curve (`--ease`) and one depth recipe run the whole site. Cards sit in a blush
+tray with the image nested inside it; buttons compress when pressed and their trailing
+arrow drifts on hover; sections enter on scroll through an IntersectionObserver, using
+transform and opacity only. Everything collapses at `prefers-reduced-motion`.
+
+Two details specific to this framework, worth knowing before editing:
+
+- The runtime rewrites `className` on any element with a `style-hover`, so reveal state is
+  stored in a `data-in` attribute instead. A class would be wiped on the next render.
+- `<img src="{{ ... }}">` inside `<sc-for>` makes the browser request the literal
+  placeholder once per list before React hydrates. Three harmless 404s per page load.
+
+## Order form
+
+The form posts to Netlify Forms. `__forms.html` holds a hidden copy of every field so
+Netlify's deploy-time parser can register the form, since the real one is rendered by
+JavaScript and never appears in the built HTML. Submissions land in Site settings, Forms.
+Keep the two field lists in step when the form changes.
 
 ## Files
+
 | path | what |
 |---|---|
-| `index.html` | the site, GitHub Pages entry point |
+| `index.html` | the site, entry point |
 | `TY Designs Site.dc.html` | same site, source of truth — re-copy to `index.html` after edits |
-| `Instagram CMS Plan.dc.html` | how the Instagram-as-CMS setup works, and Tawanna's instructions |
-| `TY Wordmark Options.dc.html` | the six TY serif candidates (Marcellus is the pick) |
-| `products.json` | fallback catalog, used when the Instagram function is unavailable |
-| `netlify/functions/instagram.js` | reads her posts, parses captions, 30-min cache |
-| `netlify/functions/refresh-token.js` | weekly refresh of the 60-day Instagram token |
-| `netlify.toml` | maps `/api/instagram` to the function |
-| `assets/` | logos and product photography from her Instagram |
+| `admin/index.html` | the owner panel |
+| `netlify/functions/catalog.mjs` | public list of items, no login needed |
+| `netlify/functions/admin.mjs` | sign in, add, edit, reorder, delete, photo upload |
+| `netlify/functions/media.mjs` | serves an uploaded photo |
+| `netlify/lib/store.mjs` | storage, seeding and sign-in helpers |
+| `netlify/lib/seed.mjs` | the starting catalog, written to storage once on first read |
+| `__forms.html` | hidden field definitions so Netlify registers the order form |
+| `assets/` | product photography, resized to 1100px and recompressed |
 | `support.js` | runtime the `.dc.html` files load |
 
-## Contact
-313 306 4412 · tydesigns1817@gmail.com · @tyd.esign
+## Security notes
 
-## Live
-https://landon358.github.io/tydesigns/
+One shared password, a signed HttpOnly cookie, 30 day sessions, ten sign-in tries per
+15 minutes. Good for a gift catalog. If the panel ever holds customer data, this needs
+proper accounts instead.
+
+## Contact
+
+313 306 4412 · tydesigns1817@gmail.com · @tyd.esign

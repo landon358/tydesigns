@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>TY Designs &mdash; My items</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="/assets/logo_badge.png" />
+<style>
+  :root {
+    --purple: #603090; --pink: #D86090; --deep: #A84878;
+    --ink: #2E2733; --soft: #6B6472; --line: #EBD8E8; --bg: #FDFDFD;
+    --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.5;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 18px 20px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: rgba(253,253,253,0.96); backdrop-filter: blur(10px); z-index: 10;
+  }
+  h1 { font-family: Marcellus, serif; font-weight: 400; font-size: 21px; margin: 0; }
+  main { max-width: 620px; margin: 0 auto; padding: 20px 20px 80px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 52px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--purple);
+    background: var(--purple); color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+    transition: background-color 0.5s var(--ease), color 0.5s var(--ease),
+                border-color 0.5s var(--ease), transform 0.35s var(--ease), box-shadow 0.5s var(--ease);
+  }
+  .btn:hover { box-shadow: 0 16px 30px -22px rgba(57,28,80,0.8); }
+  .btn:active { transform: scale(0.975); }
+  .btn[disabled] { opacity: 0.55; cursor: default; }
+  .btn.ghost { background: transparent; color: var(--purple); }
+  .btn.wide { width: 100%; }
+  .btn.small { min-height: 40px; padding: 0 14px; font-size: 14px; font-weight: 500; }
+  .btn.danger { border-color: #C0453F; color: #C0453F; background: transparent; }
+  label { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--soft); margin: 0 0 6px; }
+  input[type="text"], input[type="password"], textarea {
+    width: 100%; padding: 15px; font: inherit; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 14px; background: #fff;
+    transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--pink); outline-offset: 1px; }
+  textarea { min-height: 92px; resize: vertical; }
+  .hint { font-size: 13.5px; color: var(--soft); margin: 6px 0 0; }
+  .card {
+    border-radius: 26px; background: #fff; padding: 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 0 0 1px rgba(96,48,144,0.08),
+                0 24px 50px -38px rgba(57,28,80,0.55);
+  }
+  .field { margin: 0 0 18px; }
+  .drop {
+    border: 1px dashed var(--pink); border-radius: 22px; background: #FFF7FB;
+    padding: 30px 18px; text-align: center; cursor: pointer;
+    transition: background-color 0.5s var(--ease), border-color 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+  .drop:hover { background: #FDEFF7; transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+  .drop img { max-width: 100%; max-height: 280px; border-radius: 12px; display: block; margin: 0 auto; }
+  .row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .row img {
+    width: 88px; height: 88px; object-fit: cover; border-radius: 16px; flex: none; background: var(--line);
+    box-shadow: 0 0 0 1px rgba(96,48,144,0.08), 0 10px 22px -16px rgba(57,28,80,0.6);
+  }
+  .row .desc { font-size: 15px; margin: 0 0 10px; }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .note { padding: 14px 16px; border-radius: 12px; font-size: 15px; margin: 0 0 18px; }
+  .note.good { background: #F1F8F2; color: #2F6B3A; }
+  .note.bad { background: #FDF1F0; color: #A33A34; }
+  .muted { color: var(--soft); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My items</h1>
+  <div>
+    <a class="btn ghost small" href="/" target="_blank" rel="noopener">View site</a>
+    <button class="btn ghost small" id="signout" hidden>Sign out</button>
+  </div>
+</header>
+
+<main>
+  <p class="note bad" id="error" hidden></p>
+  <p class="note good" id="ok" hidden></p>
+
+  <!-- Sign in -->
+  <section id="gate" hidden>
+    <div class="card">
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" enterkeyhint="go" />
+      </div>
+      <button class="btn wide" id="signin">Sign in</button>
+    </div>
+  </section>
+
+  <!-- Add or edit -->
+  <section id="editor" hidden>
+    <div class="card">
+      <div class="field">
+        <label>Photo</label>
+        <div class="drop" id="drop">
+          <img id="preview" alt="" hidden />
+          <div id="dropText">
+            <strong>Tap to choose a photo</strong>
+            <p class="hint" style="margin-top:4px">From your camera roll. It gets resized for you.</p>
+          </div>
+        </div>
+        <input type="file" id="file" accept="image/*" hidden />
+      </div>
+      <div class="field">
+        <label for="desc">Description <span style="text-transform:none;letter-spacing:0;font-weight:400">(optional)</span></label>
+        <textarea id="desc" placeholder="Custom photo tumbler, 20 oz. Add your favorite picture and name."></textarea>
+        <p class="hint">Leave it empty to show the photo on its own.</p>
+      </div>
+      <button class="btn wide" id="save">Add to my site</button>
+      <button class="btn ghost wide" id="cancel" style="margin-top:10px" hidden>Cancel</button>
+    </div>
+  </section>
+
+  <!-- Current items -->
+  <section id="listWrap" hidden style="margin-top:30px">
+    <h2 style="font-family:Marcellus,serif;font-weight:400;font-size:19px;margin:0 0 4px">On my site now</h2>
+    <p class="hint" id="count" style="margin:0 0 10px"></p>
+    <div class="card" id="list"></div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const MAX_SIDE = 1600;
+let items = [];
+let editing = null;   // id being edited, null when adding
+let photo = null;     // /media/xxxx.jpg once uploaded
+
+const say = (el, msg) => { el.textContent = msg; el.hidden = !msg; if (msg) window.scrollTo({ top: 0, behavior: "smooth" }); };
+const fail = (msg) => { say($("ok"), ""); say($("error"), msg); };
+const done = (msg) => { say($("error"), ""); say($("ok"), msg); setTimeout(() => say($("ok"), ""), 4000); };
+
+async function api(action, body, type) {
+  const res = await fetch("/api/admin/" + action, {
+    method: "POST",
+    headers: type ? { "content-type": type } : { "content-type": "application/json" },
+    body: type ? body : JSON.stringify(body || {})
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(data.error || res.status), { code: data.error, status: res.status });
+  return data;
+}
+
+// Shrink the photo in the browser so a 5 MB phone picture uploads in a second.
+function shrink(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, MAX_SIDE / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * scale);
+      c.height = Math.round(img.height * scale);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      c.toBlob((b) => (b ? resolve(b) : reject(new Error("convert"))), "image/jpeg", 0.85);
+    };
+    img.onerror = () => reject(new Error("read"));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+function showList() {
+  const list = $("list");
+  list.innerHTML = "";
+  $("count").textContent = items.length
+    ? items.length + (items.length === 1 ? " item" : " items") + ", newest at the top"
+    : "";
+  if (!items.length) {
+    list.innerHTML = '<p class="muted" style="margin:0">Nothing yet. Add your first item above.</p>';
+    return;
+  }
+  items.forEach((it, i) => {
+    const row = document.createElement("div");
+    row.className = "row";
+    const img = document.createElement("img");
+    img.src = it.img; img.alt = "";
+    const body = document.createElement("div");
+    body.style.flex = "1";
+    body.innerHTML = '<div class="desc"></div><div class="tools"></div>';
+    const desc = body.querySelector(".desc");
+    desc.textContent = it.desc || "No description";
+    if (!it.desc) desc.classList.add("muted");
+    const tools = body.querySelector(".tools");
+    const btn = (label, cls, fn) => {
+      const b = document.createElement("button");
+      b.className = "btn small " + cls; b.textContent = label; b.onclick = fn;
+      tools.appendChild(b);
+    };
+    btn("Edit", "ghost", () => startEdit(it));
+    btn(it.hidden ? "Show on site" : "Hide", "ghost", () => act("save", { ...it, hidden: !it.hidden }));
+    if (i > 0) btn("Move up", "ghost", () => act("move", { id: it.id, dir: "up" }));
+    if (i < items.length - 1) btn("Move down", "ghost", () => act("move", { id: it.id, dir: "down" }));
+    btn("Delete", "danger", () => {
+      if (confirm("Delete this item? This cannot be undone.")) act("delete", { id: it.id });
+    });
+    if (it.hidden) {
+      const tag = document.createElement("span");
+      tag.className = "muted"; tag.style.fontSize = "13px";
+      tag.textContent = "Hidden from the site";
+      body.appendChild(tag);
+    }
+    row.append(img, body);
+    list.appendChild(row);
+  });
+}
+
+async function act(action, body) {
+  try {
+    const data = await api(action, body);
+    items = data.items || items;
+    showList();
+  } catch (e) { fail(message(e)); }
+}
+
+function message(e) {
+  if (e.code === "signed_out" || e.status === 401) { signedOut(); return "Please sign in again."; }
+  if (e.code === "too_many") return "Too many tries. Wait a few minutes and try again.";
+  if (e.code === "bad_size") return "That photo is too big. Try another one.";
+  if (e.code === "bad_type") return "That file is not a photo.";
+  if (e.code === "no_photo") return "Choose a photo first.";
+  return "Something went wrong. Check your connection and try again.";
+}
+
+function resetForm() {
+  editing = null; photo = null;
+  $("desc").value = "";
+  $("preview").hidden = true; $("preview").removeAttribute("src");
+  $("dropText").hidden = false;
+  $("save").textContent = "Add to my site";
+  $("cancel").hidden = true;
+  $("file").value = "";
+}
+
+function startEdit(it) {
+  editing = it.id; photo = it.img;
+  $("desc").value = it.desc || "";
+  $("preview").src = it.img; $("preview").hidden = false; $("dropText").hidden = true;
+  $("save").textContent = "Save changes";
+  $("cancel").hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function signedIn(on) {
+  $("gate").hidden = on;
+  $("editor").hidden = !on;
+  $("listWrap").hidden = !on;
+  $("signout").hidden = !on;
+}
+
+function signedOut() { items = []; signedIn(false); $("password").value = ""; }
+
+// ---- wiring ----------------------------------------------------------------
+
+$("drop").onclick = () => $("file").click();
+
+$("file").onchange = async () => {
+  const file = $("file").files[0];
+  if (!file) return;
+  say($("error"), "");
+  $("save").disabled = true;
+  $("save").textContent = "Uploading photo…";
+  try {
+    const blob = await shrink(file);
+    const { img } = await api("upload", blob, "image/jpeg");
+    photo = img;
+    $("preview").src = img; $("preview").hidden = false; $("dropText").hidden = true;
+  } catch (e) { fail(message(e)); }
+  $("save").disabled = false;
+  $("save").textContent = editing ? "Save changes" : "Add to my site";
+};
+
+$("save").onclick = async () => {
+  if (!photo) return fail("Choose a photo first.");
+  $("save").disabled = true;
+  try {
+    const data = await api("save", {
+      id: editing || "", img: photo, desc: $("desc").value,
+      hidden: editing ? (items.find((i) => i.id === editing) || {}).hidden : false
+    });
+    items = data.items;
+    showList();
+    done(editing ? "Saved. Your site is updated." : "Added. Your site is updated.");
+    resetForm();
+  } catch (e) { fail(message(e)); }
+  $("save").disabled = false;
+};
+
+$("cancel").onclick = () => { resetForm(); say($("error"), ""); };
+
+$("signin").onclick = async () => {
+  $("signin").disabled = true;
+  try {
+    await api("login", { password: $("password").value });
+    $("password").value = "";
+    say($("error"), "");
+    await load();
+  } catch (e) {
+    fail(e.code === "bad_password" ? "That password is not right." : message(e));
+  }
+  $("signin").disabled = false;
+};
+
+$("password").onkeydown = (e) => { if (e.key === "Enter") $("signin").click(); };
+
+$("signout").onclick = async () => { await api("logout").catch(() => {}); signedOut(); };
+
+async function load() {
+  try {
+    const data = await api("list");
+    items = data.items || [];
+    signedIn(true);
+    resetForm();
+    showList();
+  } catch (e) {
+    if (e.status === 401) signedIn(false);
+    else fail(message(e));
+  }
+}
+
+load();
+</script>
+</body>
+</html>
