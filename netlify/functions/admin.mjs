@@ -1,6 +1,7 @@
 // Everything the owner panel does: sign in, list, add, edit, reorder, delete.
 // One password, kept in the ADMIN_PASSWORD environment variable, never in this repo.
 
+import { SEED } from "../lib/seed.mjs";
 import {
   readItems, writeItems, media, newId,
   passwordOk, makeCookie, clearCookie, signedIn, json
@@ -87,6 +88,19 @@ export default async function handler(req, ctx) {
       await media().delete(key).catch(() => {});
     }
     return json({ items: rest });
+  }
+
+  // One-way top up: any catalog item shipped in seed.mjs that is not on the site yet
+  // gets added. Nothing she has written is touched, and running it twice is harmless.
+  if (action === "sync-seed") {
+    const have = new Set(items.map((it) => it.img));
+    const fresh = SEED.filter((row) => !have.has(row.img))
+      .map((row) => ({ ...row, id: newId(), hidden: false, addedAt: null }));
+    if (fresh.length) {
+      items.unshift(...fresh);
+      await writeItems(items);
+    }
+    return json({ added: fresh.length, items });
   }
 
   if (action === "move") {
