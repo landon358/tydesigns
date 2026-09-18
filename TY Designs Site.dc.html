@@ -449,7 +449,10 @@
             <p style="margin: 0 0 10px; font-size: 16px;"><a href="tel:+13133064412" style="font-weight: 600;">Call 313 306 4412</a></p>
             <p style="margin: 0; font-size: 16px;"><a href="mailto:tydesigns1817@gmail.com" style="font-weight: 600;">tydesigns1817@gmail.com</a></p>
           </div>
-          <div style="background: #F6EAF4; border-radius: 3px; padding: 26px;">
+          <div data-bezel="" style="padding: 8px;">
+            <img data-core="" loading="lazy" decoding="async" src="/assets/design-approval.jpg" alt="Design approval policy: once you reply approved, that is final approval. No refunds, changes, alterations or do-overs. All sales final." style="width: 100%; display: block;" />
+          </div>
+          <div style="background: #F6EAF4; border-radius: 22px; padding: 26px;">
             <p style="margin: 0 0 14px; font-family: 'Great Vibes', cursive; font-size: 30px; color: #603090;">Before you send</p>
             <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: #3A3340;">&#9825;&nbsp; Photos look best clear, bright, and full size.</p>
             <p style="margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: #3A3340;">&#9825;&nbsp; Add a self photo to any item.</p>
@@ -763,7 +766,8 @@ class Component extends DCLogic {
         { q: "Do you ship?", a: "Yes, anywhere in the U.S. Shipping is an additional cost." },
         { q: "Can I pick up in Detroit?", a: "Yes, local pickup on the east side by appointment." },
         { q: "Can I add a photo to any item?", a: "Yes, just send the picture along with your request." },
-        { q: "Can you use my own design or logo?", a: "Absolutely. Send your artwork or logo and I'll work from that." }
+        { q: "Can you use my own design or logo?", a: "Absolutely. Send your artwork or logo and I'll work from that." },
+        { q: "What happens after I approve my design?", a: "Approval is final. Once you reply approved, there are no refunds, changes, alterations or do-overs, so please check spelling, names, colors and layout carefully." }
       ].map((f, i) => ({ ...f, revealStyle: stagger(i, 50, "border-top:1px solid #EBD8E8;padding:22px 0;") }))
     };
   }
