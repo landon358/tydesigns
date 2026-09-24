@@ -38,6 +38,10 @@
   a:hover { color: #D86090; }
   input, select, textarea, button { font-family: inherit; font-size: inherit; color: inherit; }
   img { max-width: 100%; }
+  /* A text input's default intrinsic width is about 200px, and grid items refuse to
+     shrink below their content, so a two column row would push a phone sideways. */
+  form, main, section, label { min-width: 0; }
+  input, select, textarea { min-width: 0; max-width: 100%; }
 
   /* Paper grain. Fixed and inert so it never repaints while scrolling. */
   body::after {
@@ -171,7 +175,7 @@
           <h2 style="margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -0.01em;">What we make</h2>
           <a href="#" onClick="{{ navShop }}" style="font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid #D4ADCB; padding-bottom: 3px;">See the full shop</a>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 20px;">
           <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="5">
             <a href="#" onClick="{{ cat.go }}" data-reveal="" style="{{ cat.revealStyle }}" style-hover="color: #603090;">
               <div data-bezel="">
@@ -190,7 +194,7 @@
     <section style="background: #391C50; color: #FDFDFD; padding: clamp(78px, 9vw, 120px) 22px;">
       <div style="max-width: 1180px; margin: 0 auto;">
         <p style="margin: 0 0 40px; font-family: 'Great Vibes', cursive; font-size: 34px; color: #D4ADCB;">Why TY Designs</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 40px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 40px;">
           <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
             <div data-glass="" data-reveal="" style="{{ r.revealStyle }}">
               <div style="font-size: 15px; color: #D86090; margin-bottom: 14px;">&#9825;</div>
@@ -408,14 +412,19 @@
             </div>
           </sc-if>
           <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;">
+            <a href="#" onClick="{{ goCustomTab }}" style="{{ tabCustomStyle }}">Custom order</a>
+            <a href="#" onClick="{{ goBinderTab }}" style="{{ tabBinderStyle }}">Learning binder</a>
+          </div>
+          <sc-if value="{{ isCustomOrder }}" hint-placeholder-val="{{ true }}">
           <form onSubmit="{{ submit }}" name="order" method="POST" data-netlify="true" encType="multipart/form-data" style="display: grid; gap: 20px;">
             <input type="hidden" name="form-name" value="order" />
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;">
               <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your name</span><input name="name" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
               <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone</span><input name="phone" type="tel" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
             </div>
             <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email</span><input name="email" type="email" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;">
               <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">What would you like?</span>
                 <select name="item" value="{{ item }}" onChange="{{ setItem }}" style="min-height: 48px; padding: 0 12px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;">
                   <sc-for list="{{ itemOptions }}" as="o" hint-placeholder-count="8"><option value="{{ o }}">{{ o }}</option></sc-for>
@@ -426,7 +435,7 @@
             <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Name or text to print</span><input name="print_text" type="text" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
             <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Theme, colors, or idea</span><textarea name="idea" rows="4" style="padding: 12px 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD; resize: vertical;" style-focus="outline: none; border-color: #603090;"></textarea></label>
             <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your photo <span style="text-transform: none; letter-spacing: 0; font-weight: 400;">(clear, well lit, high quality)</span></span><input name="photo" type="file" accept="image/*" style="min-height: 48px; padding: 12px 14px; border: 1px dashed #D4ADCB; border-radius: 2px; background: #FDFDFD;" /></label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;">
               <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Need it by</span><input name="needed_by" type="date" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
               <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Pickup or ship</span>
                 <select name="delivery" style="min-height: 48px; padding: 0 12px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;">
@@ -440,6 +449,63 @@
             </sc-if>
             <button type="submit" data-cta="" style="min-height: 58px; padding: 0 18px 0 32px; border: none; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; justify-self: start; display: inline-flex; align-items: center;" style-hover="background: #603090;">{{ submitLabel }}<span data-icon="">&#8599;</span></button>
           </form>
+          </sc-if>
+
+          <sc-if value="{{ isBinderOrder }}" hint-placeholder-val="{{ false }}">
+          <form onSubmit="{{ submit }}" onChange="{{ countPages }}" name="binder" method="POST" data-netlify="true" encType="multipart/form-data" style="display: grid; gap: 20px;">
+            <input type="hidden" name="form-name" value="binder" />
+
+            <div style="border: 1px solid #EBD8E8; border-radius: 16px; padding: 18px 20px; background: #FDFDFD;">
+              <p style="margin: 0 0 6px; font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: 0.01em;">Personalized Learning Binder</p>
+              <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3A3340;">Order form, 10 page binder. $40 includes 10 personalized full-color laminated learning pages, binder, and erasable markers.</p>
+            </div>
+
+            <p style="margin: 10px 0 0; padding: 11px 18px; border-radius: 6px; background: #E8177D; color: #FFFFFF; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Customer &amp; child information</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Parent/Guardian Name 1</span><input name="parent1" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone 1</span><input name="phone1" type="tel" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Parent/Guardian Name 2</span><input name="parent2" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone 2</span><input name="phone2" type="tel"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email 1</span><input name="email1" type="email"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Date Needed</span><input name="needed_by" type="date"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email 2</span><input name="email2" type="email"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Age</span><input name="child_age" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Child&rsquo;s Name</span><input name="child_name" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Boy / Girl</span><input name="child_gender" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Birthday</span><input name="child_birthday" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Favorite Colors</span><input name="favorite_colors" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <fieldset style="border: 1px solid #D4ADCB; border-radius: 2px; padding: 14px 16px; margin: 0;">
+              <legend style="padding: 0 6px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Photo Provided</legend>
+              <div style="display: flex; flex-wrap: wrap; gap: 22px;">
+                <label style="display: flex; align-items: center; gap: 9px; font-size: 15px;"><input type="radio" name="photo_provided" value="Yes" style="width: 18px; height: 18px; accent-color: #603090;" />Yes</label>
+                <label style="display: flex; align-items: center; gap: 9px; font-size: 15px;"><input type="radio" name="photo_provided" value="No" style="width: 18px; height: 18px; accent-color: #603090;" />No</label>
+              </div>
+              <label style="display: grid; gap: 7px; margin-top: 14px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Attach it here, or text it over</span><input name="photo" type="file" accept="image/*" style="min-height: 48px; padding: 12px 14px; border: 1px dashed #D4ADCB; border-radius: 2px; background: #FDFDFD;" /></label>
+            </fieldset>
+
+            <p style="margin: 10px 0 0; padding: 11px 18px; border-radius: 6px; background: #1B86E8; color: #FFFFFF; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Choose 10 learning pages</p>
+            <p style="margin: 0; font-size: 14.5px; color: #6B6472;">{{ pagesPicked }}</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 10px 20px;">
+              <sc-for list="{{ binderPages }}" as="pg" hint-placeholder-count="30">
+                <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; font-size: 15px; color: #3A3340;">
+                  <input type="checkbox" name="page_choice" value="{{ pg }}" style="width: 18px; height: 18px; accent-color: #603090;" />{{ pg }}
+                </label>
+              </sc-for>
+            </div>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Other</span><input name="page_other" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+
+            <p style="margin: 10px 0 0; padding: 11px 18px; border-radius: 6px; background: #1F9E55; color: #FFFFFF; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Order details</p>
+            <div style="border: 1px solid #EBD8E8; border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px;">
+              <p style="margin: 0; font-size: 15.5px; font-weight: 600;">10-Page Personalized Learning Binder &nbsp;&nbsp; $40</p>
+              <p style="margin: 0; font-size: 14px; color: #6B6472;">Includes 10 personalized full-color laminated pages, binder, and erasable markers.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Additional Pages, $3 each &mdash; Qty</span><input name="extra_pages_qty" type="number" min="0" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Additional Pages $</span><input name="extra_pages_cost" type="text" inputMode="decimal" placeholder="$" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Order Total $</span><input name="order_total" type="text" inputMode="decimal" placeholder="$" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Shipping Fee, U.S. only $</span><input name="shipping_fee" type="text" inputMode="decimal" placeholder="$" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Deposit Paid $</span><input name="deposit_paid" type="text" inputMode="decimal" placeholder="$" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Balance Due $</span><input name="balance_due" type="text" inputMode="decimal" placeholder="$" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Special Instructions</span><textarea name="instructions" rows="4" style="padding: 12px 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD; resize: vertical;" style-focus="outline: none; border-color: #603090;"></textarea></label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Customer Signature, type your full name</span><input name="signature" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Date</span><input name="signature_date" type="date"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+
+            <p style="margin: 4px 0 0; font-size: 13.5px; letter-spacing: 0.04em; color: #6B6472;">TY DESIGNS &nbsp;|&nbsp; Tawanna &nbsp;|&nbsp; 313 306 4412 &nbsp;|&nbsp; tydesigns1817@gmail.com &nbsp;|&nbsp; @TYdesigns</p>
+
+            <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+              <p style="margin: 0; padding: 14px 18px; border-radius: 14px; background: #FDF1F0; color: #A33A34; font-size: 15px;">{{ formError }}</p>
+            </sc-if>
+            <button type="submit" data-cta="" style="min-height: 58px; padding: 0 18px 0 32px; border: none; border-radius: 999px; background: #0E0E0F; color: #FDFDFD; font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; justify-self: start; display: inline-flex; align-items: center;" style-hover="background: #603090;">{{ submitLabel }}<span data-icon="">&#8599;</span></button>
+          </form>
+          </sc-if>
           </sc-if>
         </div>
         <aside style="display: grid; gap: 22px;">
@@ -467,7 +533,7 @@
 
   <footer style="background: #0E0E0F; color: #FDFDFD; padding: 64px 22px 40px;">
     <div style="max-width: 1180px; margin: 0 auto;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 40px; padding-bottom: 42px; border-bottom: 1px solid #2A242E;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 40px; padding-bottom: 42px; border-bottom: 1px solid #2A242E;">
         <div>
           <div style="display: flex; align-items: baseline; gap: 7px;">
             <span style="font-weight: 700; font-size: 30px; color: #FDFDFD; font-family: {{ tyFont }};">TY</span>
@@ -510,6 +576,7 @@
 class Component extends DCLogic {
   state = {
     page: "home", sent: false, sending: false, formError: null, item: "Custom tumbler", catalog: null,
+    orderTab: "custom", pagesCount: 0,
     mobile: typeof window !== "undefined" ? window.innerWidth < 860 : false,
     menuOpen: false, hideHeader: false, foot: null
   };
@@ -627,6 +694,10 @@ class Component extends DCLogic {
     };
     const m = this.state.mobile;
     const open = this.state.menuOpen;
+    const tabStyle = (on) =>
+      "display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:999px;font-size:12.5px;font-weight:600;" +
+      "letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background-color 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);" +
+      (on ? "background:#603090;color:#FDFDFD;border:1px solid #603090;" : "background:transparent;color:#603090;border:1px solid #D4ADCB;");
     const menuLink = (i) =>
       "display:flex;align-items:center;min-height:62px;font-family:'Playfair Display',serif;font-size:30px;color:#0E0E0F;" +
       "transition:opacity 0.6s var(--ease), transform 0.6s var(--ease);transition-delay:" + (open ? 80 + i * 60 : 0) + "ms;" +
@@ -706,8 +777,15 @@ class Component extends DCLogic {
         e.preventDefault();
         if (this.state.sending) return;
         const form = e.target;
+        const name = form.getAttribute("name") || "order";
         const body = new FormData(form);
-        body.set("form-name", "order");
+        if (name === "binder") {
+          // Netlify keeps one value per field, so the ticked pages go over as one list.
+          const picked = body.getAll("page_choice");
+          body.delete("page_choice");
+          body.set("pages", picked.join(", "));
+        }
+        body.set("form-name", name);
         this.setState({ sending: true, formError: null });
         fetch("/__forms.html", { method: "POST", body })
           .then((r) => {
@@ -720,6 +798,34 @@ class Component extends DCLogic {
           }));
       },
       resetForm: (e) => { e.preventDefault(); this.setState({ sent: false, formError: null }); },
+      isCustomOrder: this.state.orderTab === "custom",
+      isBinderOrder: this.state.orderTab === "binder",
+      goCustomTab: (e) => { e.preventDefault(); this.setState({ orderTab: "custom", formError: null }); },
+      goBinderTab: (e) => { e.preventDefault(); this.setState({ orderTab: "binder", formError: null }); },
+      tabCustomStyle: tabStyle(this.state.orderTab === "custom"),
+      tabBinderStyle: tabStyle(this.state.orderTab === "binder"),
+      countPages: (e) => {
+        const form = e.currentTarget;
+        const n = form.querySelectorAll('input[name="page_choice"]:checked').length;
+        if (n !== this.state.pagesCount) this.setState({ pagesCount: n });
+      },
+      pagesPicked: this.state.pagesCount === 10
+        ? "Ten chosen. Perfect."
+        : this.state.pagesCount > 10
+          ? this.state.pagesCount + " chosen. That is " + (this.state.pagesCount - 10) + " over ten, which I can quote as extra pages."
+          : this.state.pagesCount + " of 10 chosen.",
+      binderPages: [
+        "I Know My Name", "My Last Name", "My Age",
+        "My Birthday", "My Address", "My Phone Number",
+        "Parents/Guardians' Names", "Emergency / 911 Safety", "Colors",
+        "Shapes", "Numbers / Tracing", "Missing Numbers",
+        "Numbers 21-50", "ABCs / Letter Tracing", "Uppercase & Lowercase Matching",
+        "Beginning Sounds", "Sight Words", "Days of the Week",
+        "Months of the Year", "Seasons of the Year", "Weather",
+        "Body Parts", "Five Senses", "Left & Right",
+        "Feelings & Emotions", "Healthy Foods", "Animals & Their Sounds",
+        "Tracing / Pre-Writing", "Boy or Girl", "Let's Count"
+      ],
       categories: [
         cat("Tumblers & Mugs", "Adult, youth, and kids sizes.", "assets/cups-collection.jpg", "shop"),
         cat("Matching Sets", "Lunch bag, pencil bag and tumbler.", "assets/set-pawpatrol.jpg", "shop"),
