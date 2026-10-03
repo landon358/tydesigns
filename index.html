@@ -208,14 +208,23 @@
 
     <section style="padding: clamp(78px, 9vw, 124px) 22px;">
       <div style="max-width: 1180px; margin: 0 auto;">
-        <h2 style="margin: 0 0 8px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 40px);">How to order</h2>
-        <p style="margin: 0 0 44px; font-size: 16px; color: #6B6472;">Four steps, start to doorstep.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;">
-          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+        <h2 style="margin: 0 0 8px; font-family: 'Playfair Display', serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 40px);">Creation</h2>
+        <p style="margin: 0 0 44px; font-size: 16px; color: #6B6472;">Three simple steps, from your idea to your doorstep.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 32px;">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
             <div data-reveal="" style="{{ s.revealStyle }}">
               <p style="margin: 0 0 10px; font-family: 'Playfair Display', serif; font-size: 40px; line-height: 1; color: #D4ADCB;">{{ s.n }}</p>
-              <h3 style="margin: 0 0 7px; font-size: 16px; font-weight: 600; letter-spacing: 0.01em;">{{ s.title }}</h3>
-              <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: #6B6472;">{{ s.body }}</p>
+              <h3 style="margin: 0 0 9px; font-size: 16px; font-weight: 600; letter-spacing: 0.01em;">{{ s.title }}</h3>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.65; color: #6B6472;">{{ s.body }}</p>
+              <sc-if value="{{ s.hasMore }}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 10px 0 0; font-size: 14.5px; line-height: 1.65; color: #6B6472;">{{ s.more }}</p>
+              </sc-if>
+              <sc-if value="{{ s.hasNote }}" hint-placeholder-val="{{ false }}">
+                <p style="margin: 10px 0 0; font-size: 14.5px; line-height: 1.6; color: #603090;"><strong>Important:</strong> {{ s.note }}</p>
+              </sc-if>
+              <sc-if value="{{ s.hasLink }}" hint-placeholder-val="{{ false }}">
+                <a href="#" onClick="{{ s.go }}" style="display: inline-block; margin-top: 12px; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid #D4ADCB; padding-bottom: 3px;">Send your details</a>
+              </sc-if>
             </div>
           </sc-for>
         </div>
@@ -840,11 +849,27 @@ class Component extends DCLogic {
         { title: "Made with care", body: "Every order is crafted with love, one at a time." }
       ].map((r, i) => ({ ...r, revealStyle: stagger(i, 80) })),
       steps: [
-        { n: "1", title: "Send your photo", body: "Text or upload a clear, high-quality picture and tell me the idea." },
-        { n: "2", title: "We create your item", body: "I design it, send a preview, and press it by hand." },
-        { n: "3", title: "A one-of-a-kind gift", body: "Something nobody else has, made for the moment." },
-        { n: "4", title: "Pickup or ship", body: "Local pickup in Detroit, or fast and reliable U.S. shipping." }
-      ].map((st, i) => ({ ...st, revealStyle: stagger(i, 80, "border-top:2px solid #D4ADCB;padding-top:20px;") })),
+        {
+          n: "1", title: "Choose your item and send your details",
+          body: "Select the product you would like to personalize, then send us all the details for your design.",
+          more: "This may include your name, wording, colors, photos, logo, and any design ideas or inspiration you have.",
+          link: true, go: this.go("order")
+        },
+        {
+          n: "2", title: "Review and approve your design",
+          body: "We will create your custom design and send you a proof to review before production begins. Please carefully check all spelling, names, wording, colors, images, and layout.",
+          more: "If everything looks perfect, reply APPROVED. If you notice an error or would like a correction, simply reply with the changes you would like us to make.",
+          note: "Once you approve your design, it is considered final and no additional changes can be made."
+        },
+        {
+          n: "3", title: "Creation, pickup and shipping",
+          body: "Once your design is approved, we will create your personalized item with care.",
+          more: "When your order is complete, you can choose local pickup in Detroit or have your order shipped anywhere in the U.S."
+        }
+      ].map((st, i) => ({
+        ...st, hasMore: !!st.more, hasNote: !!st.note, hasLink: !!st.link,
+        revealStyle: stagger(i, 80, "border-top:2px solid #D4ADCB;padding-top:20px;")
+      })),
       occasions: ["Birthdays", "Graduations", "Back to School", "Game Day", "Mother's Day", "Father's Day", "Memorials", "Holidays", "Just Because"],
       feed: (this.state.catalog
         ? this.state.catalog.slice(0, 8).map((r) => ({ img: r.img, alt: r.title || "Recent work by TY Designs", go: this.go("shop") }))
@@ -868,14 +893,19 @@ class Component extends DCLogic {
       ].map((b, i) => ({ ...b, revealStyle: stagger(i, 80, "border-top:2px solid #D4ADCB;padding-top:18px;") })),
       values: ["Quality", "Creativity", "Personalized", "With Love"],
       faqs: [
-        { q: "How do I order?", a: "Send your photo and idea by text or through the order form. I design it, you approve, I make it." },
+        { q: "When will I receive my design proof?", a: "Once your order details are received, your custom design will be created and sent to you for review before production." },
+        { q: "What should I check before approving my design?", a: "Please carefully review all spelling, names, colors, images, and the overall layout. Make sure everything is exactly how you want it." },
+        { q: "How do I approve my design?", a: "Reply APPROVED after reviewing your proof. This confirms that you have checked the design and are satisfied with the details." },
+        { q: "Can I request changes before approving?", a: "Yes. If something needs to be changed, please let me know before replying APPROVED." },
+        { q: "Can I make changes after I approve my design?", a: "Once you reply APPROVED, your design is considered final and may move into production. Changes, alterations, or do-overs are not available after final approval." },
+        { q: "What if I notice a spelling mistake after approving?", a: "Customers are responsible for carefully reviewing names, spelling, dates, colors, images, and other details before approval. Once approved, the submitted design is treated as correct." },
+        { q: "Can I get a refund after approving my custom design?", a: "Because personalized items are made specifically for you, approved custom designs are final." },
+        { q: "Do you take a deposit?", a: "Yes. A 50 percent deposit is due when you place your order, which reserves it and covers materials, design time and production. The balance is due before production is finished. Deposits are non-refundable and non-transferable, because every item is made for you and cannot be resold." },
+        { q: "Do you offer personalized designs?", a: "Yes! TY Designs can personalize products with names, photos, logos, sayings, colors, and other design elements depending on the item." },
         { q: "What photo should I send?", a: "Clear, well lit, and as large as possible. Screenshots often come out blurry." },
-        { q: "Do you ship?", a: "Yes, anywhere in the U.S. Shipping is an additional cost." },
+        { q: "Do you offer shipping?", a: "Yes, shipping is available. Shipping costs and delivery times can vary depending on the order and destination." },
         { q: "Can I pick up in Detroit?", a: "Yes, local pickup on the east side by appointment." },
-        { q: "Can I add a photo to any item?", a: "Yes, just send the picture along with your request." },
-        { q: "Can you use my own design or logo?", a: "Absolutely. Send your artwork or logo and I'll work from that." },
-        { q: "What happens after I approve my design?", a: "Approval is final. Once you reply approved, there are no refunds, changes, alterations or do-overs, so please check spelling, names, colors and layout carefully." },
-        { q: "Do you take a deposit?", a: "Yes. A 50 percent deposit is due when you place your order, which reserves it and covers materials, design time and production. The balance is due before production is finished. Deposits are non-refundable and non-transferable, because every item is made for you and cannot be resold." }
+        { q: "How can I place an order?", a: "Contact Tawanna at TY Designs with the product you want, quantity, personalization details, and any photos or design ideas you would like included." }
       ].map((f, i) => ({ ...f, revealStyle: stagger(i, 50, "border-top:1px solid #EBD8E8;padding:22px 0;") }))
     };
   }
