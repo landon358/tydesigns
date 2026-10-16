@@ -426,11 +426,11 @@
             <a href="#" onClick="{{ goBinderTab }}" style="{{ tabBinderStyle }}">Learning binder</a>
           </div>
           <sc-if value="{{ isCustomOrder }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ submit }}" name="order" method="POST" data-netlify="true" encType="multipart/form-data" style="display: grid; gap: 20px;">
+          <form onSubmit="{{ submit }}" name="order" method="POST" encType="multipart/form-data" style="display: grid; gap: 20px;">
             <input type="hidden" name="form-name" value="order" />
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;">
-              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your name</span><input name="name" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
-              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone</span><input name="phone" type="tel" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Your name</span><input name="name" type="text" required="required" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
+              <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone</span><input name="phone" type="tel" required="required" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
             </div>
             <label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email</span><input name="email" type="email" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;">
@@ -461,7 +461,7 @@
           </sc-if>
 
           <sc-if value="{{ isBinderOrder }}" hint-placeholder-val="{{ false }}">
-          <form onSubmit="{{ submit }}" onChange="{{ countPages }}" name="binder" method="POST" data-netlify="true" encType="multipart/form-data" style="display: grid; gap: 20px;">
+          <form onSubmit="{{ submit }}" onChange="{{ countPages }}" name="binder" method="POST" encType="multipart/form-data" style="display: grid; gap: 20px;">
             <input type="hidden" name="form-name" value="binder" />
 
             <div style="border: 1px solid #EBD8E8; border-radius: 16px; padding: 18px 20px; background: #FDFDFD;">
@@ -470,11 +470,11 @@
             </div>
 
             <p style="margin: 10px 0 0; padding: 11px 18px; border-radius: 6px; background: #E8177D; color: #FFFFFF; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">Customer &amp; child information</p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Parent/Guardian Name 1</span><input name="parent1" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone 1</span><input name="phone1" type="tel" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Parent/Guardian Name 1</span><input name="parent1" type="text" required="required" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone 1</span><input name="phone1" type="tel" required="required" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Parent/Guardian Name 2</span><input name="parent2" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Phone 2</span><input name="phone2" type="tel"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email 1</span><input name="email1" type="email"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Date Needed</span><input name="needed_by" type="date"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Email 2</span><input name="email2" type="email"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Age</span><input name="child_age" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Child&rsquo;s Name</span><input name="child_name" type="text" required="" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Boy / Girl</span><input name="child_gender" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Child&rsquo;s Name</span><input name="child_name" type="text" required="required" style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Boy / Girl</span><input name="child_gender" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 20px;"><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Birthday</span><input name="child_birthday" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label><label style="display: grid; gap: 7px;"><span style="font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Favorite Colors</span><input name="favorite_colors" type="text"  style="min-height: 48px; padding: 0 14px; border: 1px solid #D4ADCB; border-radius: 2px; background: #FDFDFD;" style-focus="outline: none; border-color: #603090;" /></label></div>
             <fieldset style="border: 1px solid #D4ADCB; border-radius: 2px; padding: 14px 16px; margin: 0;">
               <legend style="padding: 0 6px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: #6B6472;">Photo Provided</legend>
@@ -792,7 +792,15 @@ class Component extends DCLogic {
           // Netlify keeps one value per field, so the ticked pages go over as one list.
           const picked = body.getAll("page_choice");
           body.delete("page_choice");
-          body.set("pages", picked.join(", "));
+          const list = picked.join(", ");
+          body.set("pages", list);
+          // Netlify may still hold an older definition whose field is page_choice;
+          // sending the same list under both names means it lands either way.
+          body.set("page_choice", list);
+          if (!picked.length && !String(body.get("page_other") || "").trim()) {
+            this.setState({ formError: "Please choose the learning pages you would like, or write one in the Other box." });
+            return;
+          }
         }
         body.set("form-name", name);
         this.setState({ sending: true, formError: null });
@@ -815,13 +823,15 @@ class Component extends DCLogic {
       tabBinderStyle: tabStyle(this.state.orderTab === "binder"),
       countPages: (e) => {
         const form = e.currentTarget;
-        const n = form.querySelectorAll('input[name="page_choice"]:checked').length;
+        const other = form.querySelector('input[name="page_other"]');
+        const n = form.querySelectorAll('input[name="page_choice"]:checked').length +
+          (other && other.value.trim() ? 1 : 0);
         if (n !== this.state.pagesCount) this.setState({ pagesCount: n });
       },
       pagesPicked: this.state.pagesCount === 10
         ? "Ten chosen. Perfect."
         : this.state.pagesCount > 10
-          ? this.state.pagesCount + " chosen. That is " + (this.state.pagesCount - 10) + " over ten, which I can quote as extra pages."
+          ? this.state.pagesCount + " chosen. That is " + (this.state.pagesCount - 10) + " over ten, so put " + (this.state.pagesCount - 10) + " in the additional pages box below."
           : this.state.pagesCount + " of 10 chosen.",
       binderPages: [
         "I Know My Name", "My Last Name", "My Age",
